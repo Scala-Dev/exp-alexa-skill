@@ -9,6 +9,7 @@ To run this example skill you need to do two things. The first is to deploy the 
 1. Create a new device in your EXP organization.  Be sure to leave the pairing code field blank.
 2. Download the device credentials.
 3. Place the device-credentials.json file in the src directory.
+4. Install the EXP SDK dependencies by running `npm install` in the src directory.
 
 ### AWS Lambda Setup
 1. Go to the AWS Console and click on the Lambda link. Note: ensure you are in us-east or you won't be able to use Alexa with Lambda.
@@ -43,4 +44,4 @@ To run this example skill you need to do two things. The first is to deploy the 
     User: "Alexa, ask E X P to show me cars"
     Alexa: "Showing cars"
 
-To improve the accuracy of the skill populate the Custom Slot Types with labels and names used in EXP.
+To improve the accuracy of the skill populate the Custom Slot Types with labels and names used in EXP. This skill uses labels to find a matching content item and checks names followed by labels to find a matching location. If no matching location is found it checks names followed by labels to find a matching device.  If no device is found it sends the fling event to the entire organization.
