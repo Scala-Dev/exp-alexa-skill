@@ -1,0 +1,4 @@
+FlingIntent fling {searchTerm}
+FlingIntent show me {searchTerm}
+FlingIntent fling {searchTerm} to {destination}
+FlingIntent show me {searchTerm} on {destination}
