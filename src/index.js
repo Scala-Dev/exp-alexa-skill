@@ -66,39 +66,39 @@ Fling.prototype.intentHandlers = {
         var searchTermValue = intent.slots.searchTerm.value;
         var destinationValue = intent.slots.destination.value;
 
-        exp.findContent({ limit: 1, 'labels~': searchTermValue }).then(function(res) {
+        exp.findContent({ limit: 1, 'labels~': searchTermValue }).then(function (res) {
 
             if (res.total < 1) return response.tellWithCard('Sorry, I could not find that content.', 'Content Not Found', 'Could not find content labeled: ' + searchTermValue);
 
-            return Promise.resolve(res[0]).then(function(content) {
+            return Promise.resolve(res[0]).then(function (content) {
 
                 if (!destinationValue) {
                     return exp.getChannel('organization').fling({ content: content.uuid });
                 }
 
                 // try to find destination by name and labels
-                return exp.findLocations({ limit: 1, 'name~': destinationValue }).then(function(res) {
+                return exp.findLocations({ limit: 1, 'name~': destinationValue }).then(function (res) {
                     if (res.total > 0) return res[0].getChannel();
-                    else return exp.findLocations({ limit: 1, 'labels~': destinationValue }).then(function(res) {
+                    else return exp.findLocations({ limit: 1, 'labels~': destinationValue }).then(function (res) {
                         if (res.total > 0) return res[0].getChannel();
-                        else return exp.findDevices({ limit: 1, 'name~': destinationValue }).then(function(res) {
+                        else return exp.findDevices({ limit: 1, 'name~': destinationValue }).then(function (res) {
                             if (res.total > 0) return res[0].getChannel();
-                            else return exp.findDevices({ limit: 1, 'labels~': destinationValue }).then(function(res) {
+                            else return exp.findDevices({ limit: 1, 'labels~': destinationValue }).then(function (res) {
                                 if (res.total > 0) return res[0].getChannel();
                                 else return exp.getChannel('organization');
                             });
                         });
                     });
                 })
-                .then(function(channel) {
+                .then(function (channel) {
                     return channel.fling({ content: content.uuid });
                 });
             })
-            .then(function() {
+            .then(function () {
                 response.tellWithCard('Showing ' + searchTermValue, 'Showing Content', 'Showing ' + searchTermValue + (destinationValue ? ' on ' + destinationValue + '.' : '.'));
             });
         })
-        .catch(function(err) {
+        .catch(function (err) {
             response.tellWithCard('Sorry there was an error flinging content.', 'Fling Error', 'Error: ' + err.message);
         });
 

@@ -1,0 +1,15 @@
+{
+  "name": "exp-alexa-skill",
+  "version": "0.0.1",
+  "description": "An example Alexa Skill that flings content",
+  "main": "index.js",
+  "dependencies": {
+    "exp-sdk": "^1.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
